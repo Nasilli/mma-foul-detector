@@ -1,0 +1,15 @@
+# macOS junk
+.DS_Store
+**/.DS_Store
+
+# R session junk
+.Rhistory
+.RData
+.RDataTmp
+.Rproj.user/
+
+# Ignore Sherdog HTML files anywhere under data/raw
+data/raw/**/*.html
+
+# Ignore generated confidence CSVs
+interim/confidence_test_model/*.csv

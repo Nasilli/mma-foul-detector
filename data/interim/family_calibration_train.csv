@@ -1,0 +1,8 @@
+family,n_fired,tp,fp,conf
+back_head,2,1,1,0.5
+eye,2,1,1,0.5
+fence,2,1,1,0.5
+groin,2,1,1,0.5
+headbutt,2,1,1,0.5
+illegal_strike,2,1,1,0.5
+illegal_upkick,1,1,0,0.6666666666666666

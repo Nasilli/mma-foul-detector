@@ -1,0 +1,15 @@
+event,bout,foul_type,fouler,foul_idx,Context,fight_paused,point_deduction,bout_key
+UFC-whittaker-deridder-26-07-2025,Almabayev vs Ochoa,Fence Grab,Almabayev,1,"On a second effort, Almabayev is
+able to take the back upright, but he has to hook his toes in the fence to stay
+balanced.",FALSE,FALSE,almabayev vs ochoa
+UFC-whittaker-deridder-26-07-2025,Almabayev vs Ochoa,Fence Grab,Almabayev,2,"Almabayev grabs the fence,
+and Herzog calls him on it and breaks them apart. Almabayev apologizes, but
+he goes right after Ochoa for another takedown, this time in the open cage.",TRUE,FALSE,almabayev vs ochoa
+UFC-whittaker-deridder-26-07-2025,Yan vs McGhee,Back of Head Strike,Yan,1,"McGhee turns to put his
+back against the fencing, and Yan is warned for striking to the back of his head
+when McGhee tries to take the fight down.",FALSE,FALSE,yan vs mcghee
+UFC318-holloway-poirier-19-07-2025,Johnson vs Zellhuber,Groin Strike,Johnson,2,"Johnson sticks his opponent
+and moves quicker than Zellhuber can land on him, and he kicks Zellhuber in
+the stomach and might have landed to the groin.",FALSE,FALSE,johnson vs zellhuber
+UFC318-holloway-poirier-19-07-2025,Holloway vs Poirier,Eye Poke,Holloway,2,"Holloway pushing off Poirier’s face and poking him. They high-five to get going,
+and then proceed to punch one another in the face.",FALSE,FALSE,holloway vs poirier
