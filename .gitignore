@@ -8,8 +8,8 @@
 .RDataTmp
 .Rproj.user/
 
-# Ignore Sherdog HTML files anywhere under data/raw
+# Ignore Sherdog downloaded HTML files anywhere under data/raw
 data/raw/**/*.html
 
-# Ignore generated confidence CSVs
+# Ignore generated test confidence CSVs
 interim/confidence_test_model/*.csv
