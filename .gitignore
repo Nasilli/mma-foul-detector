@@ -1,15 +1,15 @@
-# R session files
+# macOS junk
+.DS_Store
+**/.DS_Store
+
+# R session junk
 .Rhistory
 .RData
+.RDataTmp
 .Rproj.user/
 
-# macOS
-.DS_Store
-
-
-# Ignore all HTML files inside raw folders
+# Ignore Sherdog downloaded HTML files anywhere under data/raw
 data/raw/**/*.html
-data/raw/**/.DS_Store
 
 # All generated CSV outputs for test
 interim/confidence_test_model/*.csv
