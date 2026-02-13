@@ -4,25 +4,6 @@
 This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents; detailing event, bout, foul type, fouler and referee action.
 Built entirely in R using tidyverse, glmnet, and a modular script pipeline
 
-## Motivation
-
-
-
-To analyse fouls at scale, a detection system was required.
-
-The project began as a purely regex-based rule engine evaluated against manually constructed gold standard tables. After repeatedly refining rules across multiple events, it became clear that rule-only approaches were brittle and reactive to variation in commentary phrasing.
-
-This led to a pivot toward a hybrid NLP architecture combining:
-
-- Domain-specific regex anchors  
-- Engineered contextual features  
-- TF-IDF representations  
-- Regularised logistic regression  
-
-The goal shifted from perfect rule matching to scalable, high-recall foul detection under extreme class imbalance.
-
-The structured extraction layer (foul type, fouler, referee action) is built on top of a detection system designed first for robustness and recall at scale.
-
 ## Motivation 
 This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high-profile incidents such as fight-ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
 To analyse fouls at scale, a detection system was required.
