@@ -26,6 +26,8 @@ Current model statistics from the blind test:
 - Recall: 94.4%
 - Precision: 79.2%
 - 89 fouls tested across approximately 6200 sentences
+- Evaluation was conducted at the sentence level on a fully blind set of events not used during model development.
+  
 The blind test was compared against a manually constructed gold standard table. I manually read through all relevant event commentaries and built a table detailing every foul incident. The fouls detected by the hybrid model are compared against this table to determine accuracy. Given the extreme class imbalance (≈1.4% positive rate), PR AUC was prioritised over ROC AUC when evaluating model performance.
 
 ## Technical Architecture:
@@ -127,7 +129,7 @@ This table contains one row per detected foul incident, including event, bout, f
 
 
 ## Design Philosophy (Recall Prioritisation):
-Recall was prioritised because false negatives are more damaging than false positives: false negeatives directly limit scalability.
+Recall was prioritised because false negatives are more damaging than false positives: false negatives directly limit scalability.
 I can filter out non-fouls that the model incorrectly detects, but I cannot add fouls that were missed without manually reading every commentary. When scaling to multiple years of events, manually checking for missed fouls becomes impossible; recall is the primary optimisation objective.
 The project also faces extreme class imbalance (e.g., 89 fouls across ∼6200 sentences). For this reason, PR AUC was prioritised over ROC AUC when comparing model performance and tuning hyperparameters.
 
