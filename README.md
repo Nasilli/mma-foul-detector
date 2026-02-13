@@ -77,32 +77,32 @@ Raw HTML files are parsed but not stored in this repository due to copyright con
 
 ### 2. Sentence-Level Dataset Creation
 The script:
---- scripts/process_event_v2.R
+```scripts/process_event_v2.R```
 parses each event HTML file and extracts:
 - Event metadata  
 - Bout information  
 - Sentence-level commentary  
 - Sentence ID (`sid`)  
 This produces structured sentence-level datasets saved under:
---- data/interim/training_sentences
+```data/interim/training_sentences```
 These datasets serve as the foundation for both rule-based detection and ML feature generation.
 
 ### 3. Feature Engineering & Model Training
 Training and feature construction are handled through scripts:
---- scripts/02_build_sentence_dataset.R
---- scripts/03_train_models.R
---- scripts/04_evaluate_and_threshold.R
+```scripts/02_build_sentence_dataset.R```
+```scripts/03_train_models.R```
+```scripts/04_evaluate_and_threshold.R```
 These scripts perform:
 - TF-IDF feature construction (unigrams + bigrams)
 - Regex-derived binary feature flag generation
 - L1-regularised logistic regression training (`glmnet`)
 - Threshold tuning using Precision-Recall metrics
 Model artefacts and intermediate objects are stored in:
---- data/interim
+```data/interim```
   
 ### 4. Hybrid Detection Execution
 The master orchestration script:
---- run_all.R
+```run_all.R```
 executes the full pipeline:
 1. Parse new event HTML files  
 2. Apply regex-based foul detection  
@@ -114,9 +114,9 @@ This ensures reproducible end-to-end execution from raw commentary to structured
 ### 5. Final Output Generation
 
 The final incident-level foul table:
---- fouls_all_hybrid
+```fouls_all_hybrid```
 is exported as:
---- data/output/Final Output Table Hybrid Model.csv
+```data/output/Final Output Table Hybrid Model.csv```
 This table contains one row per detected foul incident, including event, bout, foul type, fouler, and referee action.
 
 
@@ -143,24 +143,24 @@ For the data used to build and train the model, I have extracted the necessary s
 Download the HTMLs of the events you want to detect fouls for (If testing for accuracy, use the same events listed)
 
 Save HTMLs in:
---- raw/Hybrid Model Test Events
+```raw/Hybrid Model Test Events```
 Follow the file-naming conventions:
 - UFC320-ankalaev-pereira-04-10-2025.html - for a numbered event
 - UFCvegas-107-blanchfield-barber-31-05-2025.html - for a Vegas event
 - UFC-ulberg-reyes-27-09-2025.html - for a fight night event
 
-Open the project through the .Rproj file
+Open the project through the ```.Rproj``` file
 
 Run:
---- run_all.R
+```run_all.R```
 
 The final output table:
---- fouls_all_hybrid
+```fouls_all_hybrid```
 is saved as:
---- Final Output Table Hybrid Model.csv
+```Final Output Table Hybrid Model.csv```
 
 For accuracy analysis (if using the same events) visit the end of:
---- Hybrid Model Test.R
+```Hybrid Model Test.R```
 and look for “accuracy check”
 
 ## Events I used for the test:
