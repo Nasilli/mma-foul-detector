@@ -64,7 +64,7 @@ The project follows a modular, script-based pipeline structured around reproduci
 
 ### 1. Raw Data Ingestion
 Sherdog play-by-play HTML files are stored locally under:
---- data/raw
+'data/raw'
 Two key subfolders are used:
 - `RaW PBP Data/` – historical events used for model development  
 - `Hybrid Model Test Events/` – blind test events used for evaluation  
