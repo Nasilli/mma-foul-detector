@@ -4,12 +4,37 @@
 This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents; detailing event, bout, foul type, fouler and referee action.
 Built entirely in R using tidyverse, glmnet, and a modular script pipeline
 
+## Motivation
+
+
+
+To analyse fouls at scale, a detection system was required.
+
+The project began as a purely regex-based rule engine evaluated against manually constructed gold standard tables. After repeatedly refining rules across multiple events, it became clear that rule-only approaches were brittle and reactive to variation in commentary phrasing.
+
+This led to a pivot toward a hybrid NLP architecture combining:
+
+- Domain-specific regex anchors  
+- Engineered contextual features  
+- TF-IDF representations  
+- Regularised logistic regression  
+
+The goal shifted from perfect rule matching to scalable, high-recall foul detection under extreme class imbalance.
+
+The structured extraction layer (foul type, fouler, referee action) is built on top of a detection system designed first for robustness and recall at scale.
+
 ## Motivation 
- started this project after the fallout from the Tom Aspinall vs Ciryl Gane controversy: a fight ending eye poke, leading to calls for more research into fouls in MMA.
-I decided to try and create an MMA foul detector upon completion of a Google course in Data Analysis, as I wanted to produce the first analysis of fouls in MMA, because, according to my knowledge. There is currently no publicly available structured dataset of MMA fouls.
-I quickly realised that to be able to do this analysis, I needed to embark on a data science journey, learning as I worked. The project initially was entirely regex-rule-based, where I would work one event at a time, comparing the model’s output to my manually created 100% accurate gold standard table. This was repeated about 12 times. I aimed to keep going until I got two consecutive 100% accurate sets, but the definition of insanity loomed; repeating the same thing and expecting a different outcome. 
-I decided to change my approach and research how I could adopt more NLP pipeline principles. This led to the hybrid ML + rules-based approach, and I pivoted to focus primarily on foul detection: the structured specifics can come after.
-Initial ML testing datasets were then added to the training datasets, which is why the code is often split into two sections that are joined later. The sections were initially train/test splits, but as the project advanced, they were used for training and new blind testing data was sourced.
+This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high-profile incidents such as fight-ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
+To analyse fouls at scale, a detection system was required.
+The project began as a purely regex-based rule engine evaluated against manually constructed gold standard tables. After repeatedly refining rules across multiple events, it became clear that rule-only approaches were reactive to variation in commentary phrasing and risked over-fitting.
+This led to a pivot toward a hybrid NLP architecture combining:
+- Domain-specific regex anchors  
+- Engineered contextual features  
+- TF-IDF representations  
+- Regularised logistic regression  
+
+The goal then shifted from perfect rule matching to scalable, high-recall foul detection under extreme class imbalance.
+The structured extraction layer (foul type, fouler, referee action) is built on top of a detection system designed first for recall at scale.
 
 ## Model Performance:
 Current model statistics from the blind test:
