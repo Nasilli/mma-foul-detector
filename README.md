@@ -1,24 +1,25 @@
 # MMA Foul Detector
 
 ## Overview
-This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents; detailing event, bout, foul type, fouler and referee action.
+This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents: detailing event, bout, foul type, fouler and referee action.
+
 Built entirely in R using tidyverse, glmnet, and a modular script pipeline
 
-This project builds a scalable foul-detection system for professional MMA using a hybrid NLP architecture.  
-It combines domain-specific regex logic with machine learning to detect fouls in unstructured commentary under extreme class imbalance.  
-The long-term objective is to generate the first structured dataset of MMA fouls at scale.
+This project builds a scalable foul detection system for professional MMA using a hybrid NLP architecture.  
+It combines domain specific regex logic with machine learning to detect fouls in commentary under extreme class imbalance.  
+The long term objective is to generate the first structured dataset of MMA fouls at scale.
 
 ## Motivation
-This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high-profile incidents such as fight-ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
+This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high profile incidents such as fight ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
 To analyse fouls at scale, a detection system was required.
 The project began as a purely regex-based rule engine evaluated against manually constructed gold standard tables. After repeatedly refining rules across multiple events, it became clear that rule-only approaches were reactive to variation in commentary phrasing and risked over-fitting.
 This led to a pivot toward a hybrid NLP architecture combining:
-- Domain-specific regex anchors  
+- Domain specific regex anchors  
 - Engineered contextual features  
 - TF-IDF representations  
 - Regularised logistic regression  
 
-The goal then shifted from perfect rule matching to scalable, high-recall foul detection under extreme class imbalance.
+The goal then shifted from perfect rule matching to scalable, high recall foul detection under extreme class imbalance.
 The structured extraction layer (foul type, fouler, referee action) is built on top of a detection system designed first for recall at scale.
 
 ## Model Performance:
