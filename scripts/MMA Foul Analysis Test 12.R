@@ -85,7 +85,6 @@ process_event_v0 <- function(html_path) {
   # BEFORE
 
   
-  # AFTER  ✅
   # allow "back of Perez' head" as well as "back of the/his/her head"
   back_of_head_pat <- "back of\\s+(?:the\\s+|his\\s+|her\\s+|[A-Za-z]+(?:['’`]?\\s*)?)?head"
   
@@ -105,7 +104,7 @@ process_event_v0 <- function(html_path) {
     groin_patterns,
     eye_patterns,
     "head ?butt",
-    # 🔹 treat any “back of the head / back of NAME's head” as a foul anchor
+
     "back of the head",
     "(?:fence|cage) grab",
     "grab(?:bing|s)? the (?:fence|cage)",
@@ -115,8 +114,6 @@ process_event_v0 <- function(html_path) {
     "(?:elbow|strike).{0,30}crown of the head",
     "crown of the head.{0,40}illegal",
     "\\billegal strike\\b",
-    # NEW: fingers hooked / in / out of the fence or cage
-    # fingers or toes in the fence / cage / chain links
     "finger(s)?.{0,40}(?:in|hooked in|stuck in|out of).{0,10}(?:the\\s+)?(?:fence|cage|chain links?)",
     "toes?.{0,30}(?:in|into|on|hooked in).{0,20}(?:the\\s+)?(?:fence|cage|chain links?)",
     # NEW: generic "toes in the fence / cage / chain links"
@@ -126,7 +123,7 @@ process_event_v0 <- function(html_path) {
     "pulls?\\s+(?:his|her|their)\\s+toes?.{0,30}(?:in|into|inside)\\s+(?:the\\s+)?(?:fence|cage|chain links?)",
     # "uses her toes ... which too is a foul" style phrasing
     "toes?.{0,40}(?:which\\s+too\\s+is\\s+a\\s+foul|is\\s+also\\s+a\\s+foul|is\\s+a\\s+foul)",
-    # 🔹 NEW: generic "uses toes, which is a foul" pattern
+
     "uses?\\s+(?:his|her|their)\\s+toes?.{0,40}which\\s+too\\s+is\\s+a\\s+foul",
     back_head_patterns,
     "(?:tugs?|pulls?|grabs?|holds?).{0,30}(?:the\\s+)?chain links?",
@@ -139,25 +136,25 @@ process_event_v0 <- function(html_path) {
   eye_any_re <- regex(paste(eye_patterns,  collapse = "|"), ignore_case = TRUE)
   
   pause_patterns <- c(
-    # 🔹 generic “calls time” – catches “Bosacki calls time”, “Goddard calls time”, etc.
+  
     "\\bcalls? time\\b",
     "\\bref(?:eree)?\\b.{0,20}\\bcalls? time\\b",
     "\\btime (?:is )?(?:called|stopped)\\b",
     "\\btime-?out(?: is)? called\\b",
     "\\bdoctor(?:'|')s? (?:check|exam|examines|called in)\\b",
-    # e.g. "gives him time to recover", "gives Rock ample time to recover"
+   
     "\\bgives?\\s+(?:\\w+\\s+){0,3}time\\s+to\\s+recover\\b",
     "\\bbrings?\\s+in\\s+the\\s+doctor\\b",
-    # NEW: Ruffy-style phrasing: "Ruffy gets time to recover"
+
     "\\bgets?\\s+time\\s+to\\s+recover\\b",
-    # 🔹 explicit “gives NAME ample time to recover”
+
     "\\bgives?\\s+\\w+\\s+ample\\s+time\\s+to\\s+recover\\b",
-    # 🔹 and a short generic anchor
+
     "\\bample\\s+time\\s+to\\s+recover\\b",
     "\\b(takes?|taking|took|will\\s+take)\\s+(?:a\\s+)?(?:moment|some\\s+time|time)\\s+to\\s+recover\\b",
     "\\bis\\s+taking\\s+time\\s+to\\s+recover\\b",
     "\\ballowed to recover\\b",
-    # refs explicitly "call time" – keep but make sure it includes Bosacki too
+
     "\\b(?:tognoni|herzog|goddard|mazzagatti|hatley|peterson|beltran|rosenthal|dean|herb\\s+dean|bosacki)\\b.{0,20}calls? time\\b",
     "\\btime\\s+\\w+\\s+needs?\\s+to\\s+recover\\b",
     "\\btakes?\\s+\\d+\\s*(seconds?|minutes?)\\s+to\\s+(clear\\s+his\\s+vision|clear\\s+her\\s+vision|recover)\\b",
@@ -173,7 +170,7 @@ process_event_v0 <- function(html_path) {
   pause_re <- regex(paste(pause_patterns, collapse = "|"), ignore_case = TRUE)
   
   
-  # AFTER
+
   non_foul_pause_re <- regex(
     paste(
       c(
@@ -190,7 +187,7 @@ process_event_v0 <- function(html_path) {
   
   non_foul_backhead_re <- regex(
     paste(
-      # wrapping/tying up the head – common clinch / control
+      
       "wraps?\\s+(his|her|their)\\s+arm\\s+around\\s+the\\s+back\\s+of\\s+the\\s+head",
       "wraps?\\s+up\\s+the\\s+head",
       "collar\\s+tie",
@@ -221,7 +218,7 @@ process_event_v0 <- function(html_path) {
   no_pause_re <- regex(paste(
     "waves? (?:off|it off|the ref off)",
     "ignores? it",
-    # 🔹 generic “but they keep fighting / going”
+
     "(?:but|and)\\s+(?:they\\s+)?(?:keep|continue)(?:s)?\\s+(?:going|fighting)",
     "lets? them fight",
     sep = "|"
@@ -236,7 +233,7 @@ process_event_v0 <- function(html_path) {
     "(clutch(es|ing)?|holding|grabbing)\\s+(the\\s+)?back of (his|her) head",
     "(clutch(es|ing)?|holding|grabbing)\\s+(his|her)\\s+(cup|groin|eye|face|head)",
     "still\\s+clutching\\s+(his|her)\\s+(head|cup|groin|eye)",
-    # 🔹 NEW: recap of already-committed eye pokes (Garry / Muhammad case)
+ 
     "after\\s+landing\\s+multiple\\s+eye\\s+pokes?",
     "in\\s+trouble\\s+after\\s+getting\\s+nailed"
   )
@@ -250,19 +247,19 @@ process_event_v0 <- function(html_path) {
   
   deduction_neg_re <- regex(paste(c("warning", "no point", "without (?:a|any) point", "no\\s+points?\\s+deducted"), collapse="|"), ignore_case = TRUE)
   
-  # ==================== SENTENCE PROCESSING ====================
+
   
   to_sentences <- function(x){
     x %>%
       str_replace_all("<br>", " ") %>%
       
       # 1) FIX THE REAL MOJIBAKE SEQUENCES FIRST
-      #    U+2018 / U+2019 seen as "â˜" / "â"
+
       str_replace_all("\u00E2\u0080[\u0098\u0099]", "'") %>%   # ‘ and ’
-      #    U+201C / U+201D seen as "âœ" / "â"
+
       str_replace_all("\u00E2\u0080[\u009C\u009D]", "\"") %>%  # “ and ”
       
-      # 2) (optional) keep your older attempts – harmless now
+
       str_replace_all("â€™|â€˜", "'") %>%          
       str_replace_all("â€œ|â€\u009d", "\"") %>%
       
@@ -329,13 +326,13 @@ process_event_v0 <- function(html_path) {
       # reaction-only lines
       is_reaction_only = str_detect(sentence, reaction_only_re),
       
-      # extract timing & round info BEFORE we decide if fight has started
+ 
       time_str      = str_extract(sentence, time_re),
       round_str_raw = str_extract(sentence, round_re),
-      # 🔹 NEW: has the referee been mentioned yet?
+
       ref_mentioned = str_detect(sentence, ref_re),
       
-      # 🔹 UPDATED: fight only “starts” after ref OR the first visible clock
+
       fight_started = cumany(!is.na(time_str) | ref_mentioned),
       
       has_foul = has_foul_raw & !is_reaction_only & fight_started,
@@ -356,12 +353,7 @@ process_event_v0 <- function(html_path) {
       
   assign(paste0("sent_all_dbg__", event_name), sent_all, envir = .GlobalEnv)
   
-  # ==================== INCIDENT GROUPING ====================
-  
-  # ==================== INCIDENT GROUPING (v2: one foul sentence = one incident) ====================
-  
-  # Each sentence that matches foul_re is its OWN incident.
-  # ==================== INCIDENT GROUPING (one foul sentence = one incident) ====================
+
   
   sent_runs <- sent_all %>%
     filter(has_foul & !is_result) %>%
@@ -411,9 +403,7 @@ process_event_v0 <- function(html_path) {
   } else {
     deduction_map <- tibble(bout = character(), run_id = integer(), foul_resulted_in_deduction = logical())
   }
-  
-  # ==================== BASE FOUL TABLE ====================
-  
+
   eye_categorise_re <- regex(
     paste(
       "\\beye poke\\b|\\beyepoke\\b",
@@ -436,10 +426,10 @@ process_event_v0 <- function(html_path) {
         "eye poke",
         "\\beye(s)?\\b",
         "headbutt",
-        # 🔹 plain back-of-head anchors
+
         "back of the head",
         back_of_head_pat,
-        back_head_patterns,                 # keep the full patterns too
+        back_head_patterns,               
         "rabbit punch",
         # toes + structure
         "toes? in the cage",
@@ -473,12 +463,12 @@ process_event_v0 <- function(html_path) {
     ignore_case = TRUE
   )
   
-  # ==================== RULE CONFIDENCE (Option A) ====================
+
   
   # helper: clamp
   clamp01 <- function(x) pmax(0, pmin(1, x))
   
-  # helper: sigmoid (optional; use if you want smooth probability-like output)
+
   sigmoid <- function(z) 1 / (1 + exp(-z))
   
   # score each sentence based on evidence + exclusions
@@ -488,13 +478,13 @@ process_event_v0 <- function(html_path) {
       pos_eye_clean     = str_detect(sentence, eye_categorise_re),
       pos_pause         = pause_token & !non_foul_pz,
       pos_deduction     = is_deduction_raw,
-      # --- ALIGNMENT WITH has_foul_raw ---
+      # ALIGNMENT WITH has_foul_raw 
       pos_foul_re_hit = str_detect(sentence, foul_re),
       
       neg_block_backhead = str_detect(sentence, non_foul_backhead_re),
       neg_block_eye      = str_detect(sentence, non_foul_eye_re),
       
-      # --- ALIGNMENT WITH has_foul (final gate) ---
+      # ALIGNMENT WITH has_foul (final gate)
       neg_gate_reaction = is_reaction_only,
       neg_gate_not_started = !fight_started,
       pos_foul_language = str_detect(sentence, regex(
@@ -593,7 +583,7 @@ process_event_v0 <- function(html_path) {
   
   
   assign(paste0("sent_all_dbg__", event_name), sent_all, envir = .GlobalEnv)
-  # ==================== BASE FOUL TABLE ====================
+
   
   # Aggregate sentences to incident-level context first
   incident_context <- sent_runs_clean %>%
@@ -639,7 +629,7 @@ process_event_v0 <- function(html_path) {
     slice(1) %>%
     ungroup()
   
-  # ==================== FIGHTER NAMES ====================
+
   
   extract_fighters <- function(bout) {
     parts <- str_split(bout, " vs\\. ", n = 2)[[1]]
@@ -677,12 +667,7 @@ process_event_v0 <- function(html_path) {
     
     has <- function(p) stringr::str_detect(txt, stringr::regex(p, ignore_case = TRUE))
     
-    ## =========================================================
-    ## SPECIAL CASE PATCHES FOR KNOWN TRICKY FOULS
-    ## These run BEFORE everything else.
-    ## =========================================================
     
-    # ---------- Helper: last name first/last positions ----------
     last_pos <- function(name, upto_txt = txt) {
       locs <- stringr::str_locate_all(
         upto_txt,
@@ -701,7 +686,7 @@ process_event_v0 <- function(html_path) {
       loc[1]
     }
     
-    ## ---------- PATCH A: "NAME gets kicked in the groin" (Kape case) ----------
+
     victim_gets_kicked_groin <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,20}",
@@ -725,7 +710,7 @@ process_event_v0 <- function(html_path) {
       if (v2 && !v1) return(fighter1)  # fighter2 is victim → fighter1 fouler
     }
     
-    ## ---------- PATCH B: "… and she is warned for grabbing the fence" (Alencar) ----------
+
     if (stringr::str_detect(
       txt,
       stringr::regex("she\\s+is\\s+warned\\s+for\\s+grabbing\\s+the\\s+(fence|cage|chain\\s+links?)",
@@ -739,26 +724,23 @@ process_event_v0 <- function(html_path) {
       if (!is.na(f1_first) && (is.na(f2_first) || f1_first < f2_first)) return(fighter1)
       if (!is.na(f2_first) && (is.na(f1_first) || f2_first < f1_first)) return(fighter2)
     }
-    
-    ## ---------- PATCH C: "Tognoni warns the American ..." (Chiasson) ----------
+   
     if (stringr::str_detect(
       txt,
       stringr::regex("warns\\s+the\\s+american\\s+for\\s+striking\\s+the\\s+back\\s+of\\s+the\\s+head",
                      ignore_case = TRUE)
     )) {
-      # By construction in this dataset, "the American" here is fighter1 (Chiasson).
+      
       return(fighter1)
     }
-    
-    ## ---------- PATCH D: "flattens Allen ... bludgeoning him ... back of the head" (De Ridder) ----------
+   
     if (stringr::str_detect(
       txt,
       stringr::regex("flattens\\s+.*bludgeoning\\s+him\\s+with\\s+punches\\s+to\\s+the\\s+side\\s+and\\s+back\\s+of\\s+the\\s+head",
                      ignore_case = TRUE)
     )) {
       
-      # For this pattern, the **actor** is the FIRST name in the sentence
-      # (the one doing the flattening / bludgeoning).
+ 
       f1_first <- first_pos(f1_last)
       f2_first <- first_pos(f2_last)
       
@@ -766,8 +748,7 @@ process_event_v0 <- function(html_path) {
       if (!is.na(f2_first) && (is.na(f1_first) || f2_first < f1_first)) return(fighter2)
     }
 
-    ## ---------- helper: possessive name with broken quotes ----------
-    ## matches: "delgado's", "delgadoâs", "delgado´s", etc.
+
     name_possessive <- function(name) {
       paste0(
         "\\b", name,
@@ -775,7 +756,7 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    ## helper: both_eyes_pattern, used in HARD RULE 2 and later
+
     both_eyes_pattern <- function(actor, victim) {
       paste0(
         name_possessive(actor),
@@ -786,13 +767,8 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    # helper for possessive name (handles mojibake around apostrophes)
 
     
-    ## =========================================================
-    ## HARD RULE 0: "NAME's kick ... bumps into the cup of his opponent"
-    ## (Delgado foul 11 type)
-    ## =========================================================
     actor_possessive_bumps_cup <- function(name) {
       paste0(
         name_possessive(name),
@@ -810,11 +786,6 @@ process_event_v0 <- function(html_path) {
       return(fighter2)
     }
     
-    ## =========================================================
-    ## HARD RULE 1: generic "cup of his/her opponent"
-    ## → fouler = LAST surname before that phrase
-    ## (still keep this, but earlier)
-    ## =========================================================
     opp_cup_re <- stringr::regex("cup\\s+of\\s+(his|her)\\s+opponent", ignore_case = TRUE)
     if (stringr::str_detect(txt, opp_cup_re)) {
       loc <- stringr::str_locate(txt, opp_cup_re)[1]
@@ -836,10 +807,7 @@ process_event_v0 <- function(html_path) {
       if (f2_last_pos > f1_last_pos) return(fighter2)
     }
     
-    ## =========================================================
-    ## HARD RULE 2: "NAME's fingers ... jam into both of OTHERNAME's eyes"
-    ## (Gane foul 12 type)
-    ## =========================================================
+
     
     if (has(both_eyes_pattern(f1_last, f2_last)) && !has(both_eyes_pattern(f2_last, f1_last))) {
       return(fighter1)
@@ -848,10 +816,7 @@ process_event_v0 <- function(html_path) {
       return(fighter2)
     }
     
-    ## =========================================================
-    ## HARD RULE 3: generic "jam into both of ... eyes" with nearest-name victim
-    ## → victim = closest surname before "eyes", fouler = other fighter
-    ## =========================================================
+
     both_eyes_re <- stringr::regex(
       "jam(s|med|ming)?\\s+into\\s+both\\s+of\\s+.*eyes?",
       ignore_case = TRUE
@@ -876,10 +841,7 @@ process_event_v0 <- function(html_path) {
       if (f2_last_pos > f1_last_pos) return(fighter1)  # f2 is victim
     }
     
-    ## =========================================================
-    ## HARD RULE 4: "X controls Y ... and he is warned for grabbing the fence"
-    ## (Aliskerov / Park foul 5 type)
-    ## =========================================================
+
     controls_fence_pattern <- function(controller, controlled) {
       paste0(
         "\\b", controller, "\\b.{0,80}",
@@ -900,24 +862,8 @@ process_event_v0 <- function(html_path) {
       return(fighter2)
     }
     
-    ## ------------------------------------------------------------------
-    ## FROM HERE ON: keep your existing rules exactly as you had them
-    ## (warning patterns, low-blow victim, scoring, subject tracking, fallback)
-    ## ------------------------------------------------------------------
-    
-    # ... paste everything from your original detect_fouler_v5
-    # starting from your existing "## ---------- helper: possessive name with broken quotes ----------"
-    # down to the final fallback and "UNKNOWN" return.
-    
-    # (for brevity here I’m not re-pasting that huge block, but in your script you
-    #  should literally keep all the existing code after this comment unchanged.)
-    
-    # FALLBACK if none of the above early rules decided:
-    # (keep your existing fallback here)
-    ## ---------- helper: possessive name with broken quotes ----------
-    ## matches: "delgado's", "delgadoâs", "delgado´s", etc.
+  
 
-    ## ---------- SUPER PRIORITY: Delgado’s kick → cup of his opponent ----------
     actor_possessive_low_super <- function(name) {
       paste0(
         name_possessive(name),
@@ -938,7 +884,7 @@ process_event_v0 <- function(html_path) {
     if (apl1_super && !apl2_super) return(fighter1)
     if (apl2_super && !apl1_super) return(fighter2)
     
-    ## ---------- SUPER PRIORITY: “Gane’s fingers ... jam into both of Aspinall’s eyes” ----------
+   
     
     be1 <- has(both_eyes_pattern(f1_last, f2_last))
     be2 <- has(both_eyes_pattern(f2_last, f1_last))
@@ -946,7 +892,7 @@ process_event_v0 <- function(html_path) {
     if (be1 && !be2) return(fighter1)
     if (be2 && !be1) return(fighter2)
     
-    ## ---------- generic “NAME’s fingers ... (eye)” patterns ----------
+  
     finger_to_eyes_pattern <- function(actor, victim) {
       paste0(
         name_possessive(actor),
@@ -976,12 +922,7 @@ process_event_v0 <- function(html_path) {
     if (fe1_weak && !fe2_weak) return(fighter1)
     if (fe2_weak && !fe1_weak) return(fighter2)
     
-    ## ------------------------------------------------------------------
-    ## from here down, keep all your existing rules EXACTLY as they were
-    ## (warning patterns, low-blow victim, scoring, subject tracking, fallback)
-    ## ------------------------------------------------------------------
-    
-    # --- PRIORITY: "for NAME to not grab the fence / cage / chain links" ---
+
     chain_not_grab <- function(name) {
       paste0(
         "for\\s+", name, "\\s+to\\s+not\\s+grab\\s+the\\s+",
@@ -994,7 +935,7 @@ process_event_v0 <- function(html_path) {
     if (cng1 && !cng2) return(fighter1)
     if (cng2 && !cng1) return(fighter2)
     
-    # ---------- HIGH PRIORITY: "X is warned for ..." (no explicit ref) ----------
+ 
     warned_for_name_pattern <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,40}",
@@ -1008,8 +949,7 @@ process_event_v0 <- function(html_path) {
     
     if (wf1 && !wf2) return(fighter1)
     if (wf2 && !wf1) return(fighter2)
-    
-    # ---------- GENERIC PRONOUN VERSION: "... is warned for ..." ----------
+
     if (stringr::str_detect(txt, stringr::regex("is\\s+warned\\s+for", ignore_case = TRUE))) {
       loc_warn <- stringr::str_locate(
         txt,
@@ -1032,7 +972,7 @@ process_event_v0 <- function(html_path) {
       if (f1_last_pos > f2_last_pos) return(fighter1)
       if (f2_last_pos > f1_last_pos) return(fighter2)
     }
-    # ---------- SUPER-HIGH PRIORITY: explicit actor → foul anchor ----------
+
     
     explicit_actor_foul <- function(name) {
       paste0(
@@ -1113,9 +1053,8 @@ process_event_v0 <- function(html_path) {
     
     if (iu1 && !iu2) return(fighter1)
     if (iu2 && !iu1) return(fighter2)
-    # ---------- SUPER-HIGH PRIORITY: explicit low-blow victim wording ----------
-    
-    # e.g. "A low blow hits Kape", "Another low blow hits Silva"
+
+
     victim_low_blow_hit <- function(name) {
       paste0(
         "(?:a\\s+|another\\s+|yet\\s+another\\s+)?",
@@ -1125,7 +1064,7 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    # e.g. "Kape gets kicked in the groin again"
+
     victim_gets_kicked_groin <- function(name) {
       paste0(
         "\\b",name,"\\b.{0,20}",
@@ -1133,13 +1072,13 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    # --- ULTRA-HIGH PRIORITY: "NAME gets kicked in the groin" = NAME is victim ---
+
     vkg1 <- has(victim_gets_kicked_groin(f1_last))
     vkg2 <- has(victim_gets_kicked_groin(f2_last))
     
-    if (vkg1 && !vkg2) return(fighter2)  # fighter1 = victim → other is fouler
-    if (vkg2 && !vkg1) return(fighter1)  # fighter2 = victim → other is fouler
-    # e.g. "Yet another low blow as Kape goes down"
+    if (vkg1 && !vkg2) return(fighter2)  
+    if (vkg2 && !vkg1) return(fighter1)  
+    
     victim_low_blow_goes_down <- function(name) {
       paste0(
         "(?:a\\s+|another\\s+|yet\\s+another\\s+)?low\\s+blow",
@@ -1147,15 +1086,14 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    # e.g. "Borralho takes one to the groin and walks it off."
+
     victim_takes_one_groin <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,30}",
         "takes?\\s+one\\s+to\\s+the\\s+groin"
       )
     }
-    
-    # --- victim detection: all low-blow victim patterns bundled ---
+ 
     v1 <- has(victim_low_blow_hit(f1_last))  |
       has(victim_gets_kicked_groin(f1_last)) |
       has(victim_low_blow_goes_down(f1_last)) |
@@ -1166,17 +1104,15 @@ process_event_v0 <- function(html_path) {
       has(victim_low_blow_goes_down(f2_last)) |
       has(victim_takes_one_groin(f2_last))
     
-    # If exactly one fighter matches these victim patterns,
-    # that fighter is the victim → the OTHER fighter is the fouler.
+
     if (v1 && !v2) return(fighter2)
     if (v2 && !v1) return(fighter1)
-    # If exactly one fighter matches these victim patterns,
-    # that fighter is the victim → the OTHER fighter is the fouler.
+
     if (v1 && !v2) return(fighter2)
     if (v2 && !v1) return(fighter1)
     
     
-    # ---------- RULE 0X: "low blow hits Kape" / "headbutt catches Silva" ----------
+
     victim_object_pattern <- function(name) {
       paste0(
         "(low blow|groin shot|cup shot|headbutt|illegal headbutt|kick|knee|illegal kick|illegal knee)",
@@ -1188,12 +1124,11 @@ process_event_v0 <- function(html_path) {
     vobj1 <- has(victim_object_pattern(f1_last))
     vobj2 <- has(victim_object_pattern(f2_last))
     
-    # if one fighter is clearly the *object* of the foul shot, they are the victim,
-    # so the OTHER fighter is the fouler
+
     if (vobj1 && !vobj2) return(fighter2)
     if (vobj2 && !vobj1) return(fighter1)
     
-    # ---------- ACTOR-POSSESSIVE LOW BLOW: "Delgado's kick ... cup of his opponent" ----------
+
     actor_possessive_low <- function(name) {
       paste0(
         "\\b", name, "['’]s\\s+",
@@ -1209,7 +1144,7 @@ process_event_v0 <- function(html_path) {
     if (apl1 && !apl2) return(fighter1)
     if (apl2 && !apl1) return(fighter2)
     
-    # ---------- RULE 0A: simple "NAME ... kick/knee ... to the groin" ----------
+
     low_blow_groin <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,80}",
@@ -1222,9 +1157,7 @@ process_event_v0 <- function(html_path) {
     lb2 <- has(low_blow_groin(f2_last))
     if (lb1 && !lb2) return(fighter1)
     if (lb2 && !lb1) return(fighter2)
-    # (if both hit we drop through to later rules)
-    
-    # ... existing direct_low_blow / direct_groin_blow code continues here ...
+
     direct_low_blow <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,80}",
@@ -1233,7 +1166,7 @@ process_event_v0 <- function(html_path) {
       )
     }
     
-    # direct "NAME ... kick ... to the groin" pattern
+
     direct_groin_blow <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,80}",
@@ -1248,14 +1181,13 @@ process_event_v0 <- function(html_path) {
     if (hit_low_1 && !hit_low_2) return(fighter1)
     if (hit_low_2 && !hit_low_1) return(fighter2)
     
-    # Only use this rule when it clearly points to ONE fighter.
-    # If it matches both (like "Erosa ... and Costa ... kick ... cup"),
-    # we defer to later rules (subject tracking near 'cup').
+
+.
     if (hit_low_1 && !hit_low_2) return(fighter1)
     if (hit_low_2 && !hit_low_1) return(fighter2)
     verbs_attack <- "(kick(s|ing|ed)?|knee(s|ing|ed)?|strike(s|ing)?|hit(s|ting)?|drill(s|ing|ed)?|land(s|ing)?|shoot(s|ing)?|connect(s|ing)?|blast(s|ing|ed)?|smash(es|ing|ed)?|smack(s|ing)?|brush(es|ing)?|ricochet(s|ing)?|crash(es|ing)?|bang(s|ing)?|poke(s|ing)?|scrape(s|ing)?|rake(s|ing)?|graze(s|ing)?|push(es|ing)?|pull(s|ing)?|grab(s|ing|bed)?|roll(s|ing)?|flatten(s|ing)?|punch(es|ing)?|hack(s|ed|ing)?|bludgeon(s|ing|ed)?|headbutt(s|ing|ed)?|club(s|bed|bing)?|delivers?|stop(s|ed|ping)?|pounds?)"
     
-    # ---------- EYE-POKE VICTIM: "jabs NAME in the eye" ----------
+
     victim_eye_jab <- function(name) {
       paste0(
         "(?:jabs?|jabbed|jabbing|pokes?|poked|stabs?|thumbs?|",
@@ -1268,7 +1200,7 @@ process_event_v0 <- function(html_path) {
     
     if (e1 && !e2) return(fighter2)  # NAME is victim → other is fouler
     if (e2 && !e1) return(fighter1)
-    # ---------- RULE 0: COMPLAINING – FINAL DECISION ----------
+
     complain_verbs <- "(complain(s|ed|ing)?|protest(s|ed|ing)?|appeal(s|ed|ing)?\\s+to\\s+the\\s+ref|argue(s|d)?\\s+to\\s+the\\s+ref)"
     foul_words     <- "(eye poke|eye|low blow|cup|groin|back of the head|headbutt|clash of heads|fence|cage)"
     pat_complain <- function(name) {
@@ -1278,17 +1210,16 @@ process_event_v0 <- function(html_path) {
     c1 <- has(pat_complain(f1_last))
     c2 <- has(pat_complain(f2_last))
     
-    # If one fighter is clearly complaining to the ref about a foul,
-    # treat that fighter as the VICTIM => the OTHER fighter is the fouler.
+
     if (c1 && !c2) return(fighter2)
     if (c2 && !c1) return(fighter1)
     
-    # ---------- RULE 0A: "NAME is admonished for ..." ----------
+
     admonished_pattern <- function(name) {
       paste0(
-        "\\b", name, "\\b",                  # Tokkos
-        ".{0,120}?",                         # some text (includes 'and ')
-        "\\bis\\s+admonished\\s+for\\s+",    # 'is admonished for'
+        "\\b", name, "\\b",                  
+        ".{0,120}?",                         
+        "\\bis\\s+admonished\\s+for\\s+",    
         "(eye\\s+goug(?:e|ing)|eye\\s+poke|low\\s+blow|",
         "grabbing\\s+the\\s+fence|fence\\s+grab|back\\s+of\\s+the\\s+head|",
         "illegal\\s+knee|illegal\\s+upkick)"
@@ -1301,7 +1232,7 @@ process_event_v0 <- function(html_path) {
     if (a1 && !a2) return(fighter1)
     if (a2 && !a1) return(fighter2)
     
-    # ---------- extra victim pattern: clutching/adjusting groin/cup ----------
+
     victim_cup_adj <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,80}",
@@ -1323,7 +1254,7 @@ process_event_v0 <- function(html_path) {
     
     if (has(victim_cup_adj(f1_last))) return(fighter2)
     if (has(victim_cup_adj(f2_last))) return(fighter1)
-    # extra victim pattern: “NAME turns away from it …”
+
     victim_turns_away <- function(name) {
       paste0(
         "\\b", name, "\\b.{0,60}",
@@ -1333,9 +1264,7 @@ process_event_v0 <- function(html_path) {
     
     if (has(victim_turns_away(f1_last))) return(fighter2)
     if (has(victim_turns_away(f2_last))) return(fighter1)
-    
-    # RULE 0.25: VICTIM PASSIVITY - MOVED TO PRIORITY POSITION
-    # Check this FIRST before any scoring - if someone is clearly smacked/hit, they're victim
+
     passive_patterns <- c(
       "\\b(is|gets?|was|were)\\s+(?:smacked?|hit|kicked|punched|struck|elbowed|kneed)",
       "\\b(is|gets?|was|were)\\s+(?:hit|struck)\\s+(?:in|on|to)\\s+(?:the\\s+)?(?:back of the head|head|groin|eye|cup)"
@@ -1349,15 +1278,14 @@ process_event_v0 <- function(html_path) {
       if (has(pat_vic_f2)) return(fighter1)
     }
     
-    # RULE 0.5: REFEREE WARNING
-    # RULE 0.5: REFEREE WARNING (Test 2 logic, with 'hatley' added)
+
     warning_verbs <- c("warns?", "tells?", "advises?", "telling")
     ref_keywords <- c("referee", "ref", "tognoni", "herzog", "goddard",
                       "mazzagatti", "herb", "kim", "jon", "hatley", "dean")
     
     for (ref_kw in ref_keywords) {
       for (warn_verb in warning_verbs) {
-        # Pattern 1: explicit fighter name in the warning
+
         warning_pattern_f1 <- paste0(
           "\\b", ref_kw, "\\b.{0,20}", warn_verb,
           ".{0,30}\\b", f1_last, "\\b.{0,30}(?:",
@@ -1376,8 +1304,7 @@ process_event_v0 <- function(html_path) {
           return(fighter2)
         }
         
-        # Pattern 2: descriptor instead of explicit name
-        # e.g. "Tognoni warns the American for striking the back of the head"
+
         descriptor_warning_pattern <- paste0(
           "\\b", ref_kw, "\\b.{0,20}", warn_verb,
           ".{0,30}(he|she|they|the\\s+\\w+).{0,30}(?:",
@@ -1419,7 +1346,7 @@ process_event_v0 <- function(html_path) {
               TRUE                                             ~ NA_character_
             )
             
-            # --- PHASE 2: look forwards for resolution ("so she stops") ---
+
             warning_end <- warning_loc[2]
             resolution_region <- stringr::str_sub(txt, warning_end, warning_end + 200)
             
@@ -1429,7 +1356,7 @@ process_event_v0 <- function(html_path) {
               stringr::regex(resolution_pattern, ignore_case = TRUE)
             )
             
-            # --- NEW: victim-after-warning heuristic (overrides bad subject guess) ---
+
             victim_after_pattern <- function(name) {
               paste0(
                 "\\b", name, "(?:['’]s)?\\s+",
@@ -1445,9 +1372,7 @@ process_event_v0 <- function(html_path) {
               resolution_region,
               stringr::regex(victim_after_pattern(f2_last), ignore_case = TRUE)
             )
-            
-            # if exactly one fighter is clearly the victim after the warning,
-            # treat the OTHER fighter as the fouler
+
             if (vic1_after && !vic2_after) {
               return(fighter2)
             }
@@ -1470,35 +1395,33 @@ process_event_v0 <- function(html_path) {
               stringr::regex(victim_before_pattern(f2_last), ignore_case = TRUE)
             )
             
-            # if exactly one fighter is clearly the victim *before* the warning,
-            # treat the OTHER fighter as fouler
+
             if (vic1_before && !vic2_before) {
               return(fighter2)
             }
             if (vic2_before && !vic1_before) {
               return(fighter1)
             }
-            # --- PHASE 3: decision rules (same as Test 2) ---
+
             if (!is.na(active_subject_before) && !is.na(resolution_match)) {
               # we know who was acting AND we see them stop → that actor is the fouler
               return(active_subject_before)
             }
             
             if (!is.na(active_subject_before)) {
-              # we at least know who was acting immediately before the warning
+
               return(active_subject_before)
             }
             
             if (is.na(active_subject_before) && !is.na(resolution_match)) {
-              # ambiguous subject before, but ref warns and "he/she stops" – fall back to fighter1
-              # (this is what makes Chiasson the fouler in the “American” sentence)
+
               return(fighter1)
             }
           }
         }
       }
     }
-    # SPECIAL CASE: "is admonished for eye gouging" – assign fouler by nearest name before phrase
+
     if (stringr::str_detect(txt, "is\\s+admonished\\s+for\\s+eye\\s+goug(?:e|ing)")) {
       loc <- stringr::str_locate(txt, "is\\s+admonished\\s+for\\s+eye\\s+goug(?:e|ing)")[1]
       pre <- stringr::str_sub(txt, 1, loc - 1)
@@ -1513,7 +1436,6 @@ process_event_v0 <- function(html_path) {
       if (f2_last_pos > f1_last_pos) return(fighter2)
     }
     # RULE 1-3: SCORING
-    # RULE 1–3: scoring patterns
     obj_sensitive <- "(cup|groin|eye|head|fence|cage|back of the head)"
     verbs_passive <- "(kick(ed|ing)?|knee(d|ing)?|drill(ed|ing)?|hit|struck|smash(ed|ing)?|blast(ed|ing)?|elbow(ed|ing)?|clubbed?)"
     
@@ -1554,8 +1476,7 @@ process_event_v0 <- function(html_path) {
     if (score1 > score2 && score1 > 0) return(fighter1)
     if (score2 > score1 && score2 > 0) return(fighter2)
     
-    # RULE 4: SUBJECT TRACKING
-    # RULE 4: SUBJECT TRACKING (use LAST name before foul anchor, not first)
+
     # RULE 4: SUBJECT TRACKING (use LAST name before foul anchor, not first)
     foul_anchor_words <- c(
       "back of the head",
@@ -1613,8 +1534,7 @@ process_event_v0 <- function(html_path) {
         
         # figure out the last fighter's *last name*
         last_last <- if (identical(last_fighter, fighter1)) f1_last else f2_last
-        
-        # PASSIVE pattern: "NAME gets/is/was/were kicked/kneed/hit/..." → NAME is victim
+
         passive_pattern <- paste0(
           "\\b", last_last, "\\b.{0,40}",
           "(gets?|is|was|were)\\s+",
@@ -1631,7 +1551,7 @@ process_event_v0 <- function(html_path) {
           return(if (identical(last_fighter, fighter1)) fighter2 else fighter1)
         }
         
-        # existing attack-verb chec
+
         has_action_verbs <- stringr::str_detect(
           region_after_last,
           stringr::regex(verbs_attack, ignore_case = TRUE)
@@ -1646,7 +1566,6 @@ process_event_v0 <- function(html_path) {
       }
     }
     
-    # FALLBACK
     # FALLBACK – now also catches illegal upkicks/kicks
     foul_anchor_re <- regex(
       "cup|groin|eye|fence|cage|back of the head|grounded opponent|illegal knee|eye poke|illegal upkick|illegal kick",
@@ -1664,7 +1583,7 @@ process_event_v0 <- function(html_path) {
     "UNKNOWN"
   }
   
-  # ==================== EXPANDED CONTEXT ====================
+
   
   expanded_contexts <- sent_runs_clean %>%
     group_by(bout, run_id) %>%
@@ -1741,7 +1660,7 @@ readr::write_csv(model_v0_all, "model_v0_all_events.csv")
 
 
 
-# Assuming you are reading the file from a specified path
+
 gold <- read_csv(
   file = "MMA Foul Analysis Gold Standard Table.csv",
   name_repair = "minimal",
@@ -1878,11 +1797,11 @@ idx_compare <- gold_clean %>%
     by = c("event", "bout_key")
   ) %>%
   mutate(
-    # TRUE if the sets of indices are identical (same fouls count & order)
+  
     match = map2_lgl(gold_idx, model_idx, ~ identical(.x, .y))
   )
 
-# which gold fouls have no match in model (by event, bout_key, foul_idx)?
+
 g_test <- gold_clean %>% 
   group_by(event, bout_key) %>% 
   summarise(gold_idx = paste(sort(unique(foul_idx)), collapse = ", "))
