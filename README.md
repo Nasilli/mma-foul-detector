@@ -63,8 +63,7 @@ This includes:
 The project follows a modular, script-based pipeline structured around reproducible data stages. The system is designed to separate raw ingestion, feature generation, model training, hybrid inference, and final structured output.
 
 ### 1. Raw Data Ingestion
-Sherdog play-by-play HTML files are stored locally under:
-- 'data/raw'
+Sherdog play-by-play HTML files are stored locally under: --- data/raw
 Two key subfolders are used:
 - `RaW PBP Data/` – historical events used for model development  
 - `Hybrid Model Test Events/` – blind test events used for evaluation  
