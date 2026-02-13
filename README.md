@@ -1,10 +1,10 @@
 # MMA Foul Detector
 
-## Overview:
+## Overview
 This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents; detailing event, bout, foul type, fouler and referee action.
 Built entirely in R using tidyverse, glmnet, and a modular script pipeline
 
-## Motivation 
+## Motivation
 This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high-profile incidents such as fight-ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
 To analyse fouls at scale, a detection system was required.
 The project began as a purely regex-based rule engine evaluated against manually constructed gold standard tables. After repeatedly refining rules across multiple events, it became clear that rule-only approaches were reactive to variation in commentary phrasing and risked over-fitting.
@@ -69,9 +69,9 @@ This includes:
 The project follows a modular, script-based pipeline structured around reproducible data stages. The system is designed to separate raw ingestion, feature generation, model training, hybrid inference, and final structured output.
 
 ### 1. Raw Data Ingestion
-Sherdog play-by-play HTML files are stored locally under: --- data/raw
+Sherdog play-by-play HTML files are stored locally under: ```data/raw```
 Two key subfolders are used:
-- `RaW PBP Data/` – historical events used for model development  
+- `Raw PBP Data/` – historical events used for model development  
 - `Hybrid Model Test Events/` – blind test events used for evaluation  
 Raw HTML files are parsed but not stored in this repository due to copyright constraints.
 
@@ -91,7 +91,7 @@ These datasets serve as the foundation for both rule-based detection and ML feat
 Training and feature construction are handled through scripts:
 --- scripts/02_build_sentence_dataset.R
 --- scripts/03_train_models.R
---- scripts/04_evaluate_and)threshold.R
+--- scripts/04_evaluate_and_threshold.R
 These scripts perform:
 - TF-IDF feature construction (unigrams + bigrams)
 - Regex-derived binary feature flag generation
@@ -144,7 +144,7 @@ Download the HTMLs of the events you want to detect fouls for (If testing for ac
 
 Save HTMLs in:
 --- raw/Hybrid Model Test Events
-Follow the file-namiong conventions:
+Follow the file-naming conventions:
 - UFC320-ankalaev-pereira-04-10-2025.html - for a numbered event
 - UFCvegas-107-blanchfield-barber-31-05-2025.html - for a Vegas event
 - UFC-ulberg-reyes-27-09-2025.html - for a fight night event
@@ -184,5 +184,5 @@ My aim is to:
 - Fully validate structured extraction (fouler, foul type, referee action)
 - Scale the system to generate a structured foul dataset across multiple UFC seasons (e.g. 2020–2025)
 - Conduct deeper foul impact analysis (e.g. foul types most correlated with losses, relationship between ranking and foul frequency, etc.)
-- 
+  
 Only once foul detection is sufficiently reliable at scale will I consider the detection stage complete and move fully to structured extraction refinement and downstream analysis.
