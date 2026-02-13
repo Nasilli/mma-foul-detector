@@ -4,6 +4,10 @@
 This MMA Foul Detector is a hybrid regex rules-based / ML NLP system that reads Sherdog play-by-play HTML commentary and produces a structured table of detected foul incidents; detailing event, bout, foul type, fouler and referee action.
 Built entirely in R using tidyverse, glmnet, and a modular script pipeline
 
+This project builds a scalable foul-detection system for professional MMA using a hybrid NLP architecture.  
+It combines domain-specific regex logic with machine learning to detect fouls in unstructured commentary under extreme class imbalance.  
+The long-term objective is to generate the first structured dataset of MMA fouls at scale.
+
 ## Motivation
 This project was inspired by recurring controversy surrounding fouls in professional MMA, particularly high-profile incidents such as fight-ending eye pokes (Tom Aspinall vs Cyril Gane). Despite frequent debate around referee decisions and foul frequency, to my knowledge, there is currently no publicly available structured dataset of MMA fouls.
 To analyse fouls at scale, a detection system was required.
@@ -64,6 +68,8 @@ This includes:
   - Referee action (pause/point deduction)
 - This produces the final incident-level output table.
 
+## Pipeline Summary:
+HTML → Sentence Extraction → Regex Signals → TF-IDF + Flags → Logistic Regression → Thresholding → Hybrid Logic → Structured Extraction → Incident Table
 
 ## Data Pipeline
 The project follows a modular, script-based pipeline structured around reproducible data stages. The system is designed to separate raw ingestion, feature generation, model training, hybrid inference, and final structured output.
@@ -121,7 +127,7 @@ This table contains one row per detected foul incident, including event, bout, f
 
 
 ## Design Philosophy (Recall Prioritisation):
-Recall was prioritised because false negatives are more damaging than false positives.
+Recall was prioritised because false negatives are more damaging than false positives: false negeatives directly limit scalability.
 I can filter out non-fouls that the model incorrectly detects, but I cannot add fouls that were missed without manually reading every commentary. When scaling to multiple years of events, manually checking for missed fouls becomes impossible; recall is the primary optimisation objective.
 The project also faces extreme class imbalance (e.g., 89 fouls across ∼6200 sentences). For this reason, PR AUC was prioritised over ROC AUC when comparing model performance and tuning hyperparameters.
 
