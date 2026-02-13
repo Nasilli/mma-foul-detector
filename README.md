@@ -164,17 +164,17 @@ For accuracy analysis (if using the same events) visit the end of:
 and look for “accuracy check”
 
 ## Events I used for the test:
-UFC 317
-UFC Fight Night - Garry vs Prates
-UFC Fight Night - Hill vs Rountree
-UFC Fight Night - Sandhagen vs Figueiredo
-UFC Fight Night - Usman vs Buckley
-UFC 314
-UFC 315
-UFC 316
-UFC 324
-UFC 325
-UFC Vegas 112 - Royval vs Kape
+- UFC 317
+- UFC Fight Night - Garry vs Prates
+- UFC Fight Night - Hill vs Rountree
+- UFC Fight Night - Sandhagen vs Figueiredo
+- UFC Fight Night - Usman vs Buckley
+- UFC 314
+- UFC 315
+- UFC 316
+- UFC 324
+- UFC 325
+- UFC Vegas 112 - Royval vs Kape
 
 ## Future Works
 This is an evolving research project focused on maximising scalable foul detection performance.
